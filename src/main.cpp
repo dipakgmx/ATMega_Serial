@@ -1,8 +1,7 @@
 #include "Serial.h"
 #include "util/delay.h"
 
-int
-main()
+int main()
 {
     cli();
     // start communication at a baud rate of 115200

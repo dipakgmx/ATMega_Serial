@@ -391,150 +391,150 @@ Usart USART( 0);
 // Rx & UDRE vectors for USART0
 #if defined(HAS_USART0)
 
-Serial Serial0(0);
+    Serial Serial0(0);
 
-ISR(USART0_RX_vect)
-{
-    /* Read the received data */
-    uint8_t data = UDR0;
-    /* Calculate buffer index */
-    uint8_t temp_head = (Serial0.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
-    if (temp_head == Serial0.rxTailIndex) {
-        /* ERROR! Receive buffer overflow */
-        /* Do nothing for now */
-    }
-    else {
-        Serial0.rxHeadIndex = temp_head;
-        Serial0.rxBuffer[Serial0.rxHeadIndex] = data;
-    }
-};
-ISR(USART0_UDRE_vect)
-{
-    unsigned char temp_tail;
-    /* Check if all data is transmitted */
-    if (Serial0.txHeadIndex != Serial0.txTailIndex) {
+    ISR(USART0_RX_vect)
+    {
+        /* Read the received data */
+        uint8_t data = UDR0;
         /* Calculate buffer index */
-        temp_tail = (Serial0.txTailIndex + 1) & (BUFFER_SIZE - 1);
-        Serial0.txTailIndex = temp_tail;      /* Store new index */
+        uint8_t temp_head = (Serial0.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        if (temp_head == Serial0.rxTailIndex) {
+            /* ERROR! Receive buffer overflow */
+            /* Do nothing for now */
+        }
+        else {
+            Serial0.rxHeadIndex = temp_head;
+            Serial0.rxBuffer[Serial0.rxHeadIndex] = data;
+        }
+    };
+    ISR(USART0_UDRE_vect)
+    {
+        unsigned char temp_tail;
+        /* Check if all data is transmitted */
+        if (Serial0.txHeadIndex != Serial0.txTailIndex) {
+            /* Calculate buffer index */
+            temp_tail = (Serial0.txTailIndex + 1) & (BUFFER_SIZE - 1);
+            Serial0.txTailIndex = temp_tail;      /* Store new index */
 
-        UDR0 = Serial0.txBuffer[temp_tail];  /* Start transmission */
-    }
-    else {
-        UCSR0B &= ~(1 << UDRIE0); // disable UDRE interrupt
-    }
-};
+            UDR0 = Serial0.txBuffer[temp_tail];  /* Start transmission */
+        }
+        else {
+            UCSR0B &= ~(1 << UDRIE0); // disable UDRE interrupt
+        }
+    };
 #endif
 
 // Rx & UDRE vectors for USART1
 #if defined(HAS_USART1)
 
-Serial Serial1(1);
+    Serial Serial1(1);
 
-ISR(USART1_RX_vect)
-{
-    /* Read the received data */
-    uint8_t data = UDR1;
-    /* Calculate buffer index */
-    uint8_t temp_head = (Serial1.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
-    if (temp_head == Serial1.rxTailIndex) {
-        /* ERROR! Receive buffer overflow */
-        /* Do nothing for now */
-    }
-    else {
-        Serial1.rxHeadIndex = temp_head;
-        Serial1.rxBuffer[Serial1.rxHeadIndex] = data;
-    }
-};
-
-ISR(USART1_UDRE_vect)
-{
-    unsigned char temp_tail;
-    /* Check if all data is transmitted */
-    if (Serial1.txHeadIndex != Serial1.txTailIndex) {
+    ISR(USART1_RX_vect)
+    {
+        /* Read the received data */
+        uint8_t data = UDR1;
         /* Calculate buffer index */
-        temp_tail = (Serial1.txTailIndex + 1) & (BUFFER_SIZE - 1);
-        Serial1.txTailIndex = temp_tail;      /* Store new index */
+        uint8_t temp_head = (Serial1.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        if (temp_head == Serial1.rxTailIndex) {
+            /* ERROR! Receive buffer overflow */
+            /* Do nothing for now */
+        }
+        else {
+            Serial1.rxHeadIndex = temp_head;
+            Serial1.rxBuffer[Serial1.rxHeadIndex] = data;
+        }
+    };
 
-        UDR1 = Serial1.txBuffer[temp_tail];  /* Start transmission */
-    }
-    else {
-        UCSR1B &= ~(1 << UDRIE1); // disable UDRE interrupt
-    }
-};
+    ISR(USART1_UDRE_vect)
+    {
+        unsigned char temp_tail;
+        /* Check if all data is transmitted */
+        if (Serial1.txHeadIndex != Serial1.txTailIndex) {
+            /* Calculate buffer index */
+            temp_tail = (Serial1.txTailIndex + 1) & (BUFFER_SIZE - 1);
+            Serial1.txTailIndex = temp_tail;      /* Store new index */
+
+            UDR1 = Serial1.txBuffer[temp_tail];  /* Start transmission */
+        }
+        else {
+            UCSR1B &= ~(1 << UDRIE1); // disable UDRE interrupt
+        }
+    };
 #endif
 
 // Rx & UDRE vectors for USART2
 #if defined(HAS_USART2)
 
-Serial Serial2(2);
+    Serial Serial2(2);
 
-ISR(USART2_RX_vect)
-{
-    /* Read the received data */
-    uint8_t data = UDR2;
-    /* Calculate buffer index */
-    uint8_t temp_head = (Serial2.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
-    if (temp_head == Serial2.rxTailIndex) {
-        /* ERROR! Receive buffer overflow */
-        /* Do nothing for now */
-    }
-    else {
-        Serial2.rxHeadIndex = temp_head;
-        Serial2.rxBuffer[Serial2.rxHeadIndex] = data;
-    }
-};
-ISR(USART2_UDRE_vect)
-{
-    unsigned char temp_tail;
-    /* Check if all data is transmitted */
-    if (Serial2.txHeadIndex != Serial2.txTailIndex) {
+    ISR(USART2_RX_vect)
+    {
+        /* Read the received data */
+        uint8_t data = UDR2;
         /* Calculate buffer index */
-        temp_tail = (Serial2.txTailIndex + 1) & (BUFFER_SIZE - 1);
-        Serial2.txTailIndex = temp_tail;      /* Store new index */
+        uint8_t temp_head = (Serial2.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        if (temp_head == Serial2.rxTailIndex) {
+            /* ERROR! Receive buffer overflow */
+            /* Do nothing for now */
+        }
+        else {
+            Serial2.rxHeadIndex = temp_head;
+            Serial2.rxBuffer[Serial2.rxHeadIndex] = data;
+        }
+    };
+    ISR(USART2_UDRE_vect)
+    {
+        unsigned char temp_tail;
+        /* Check if all data is transmitted */
+        if (Serial2.txHeadIndex != Serial2.txTailIndex) {
+            /* Calculate buffer index */
+            temp_tail = (Serial2.txTailIndex + 1) & (BUFFER_SIZE - 1);
+            Serial2.txTailIndex = temp_tail;      /* Store new index */
 
-        UDR2 = Serial2.txBuffer[temp_tail];  /* Start transmission */
-    }
-    else {
-        UCSR2B &= ~(1 << UDRIE2); // disable UDRE interrupt
-    }
-};
+            UDR2 = Serial2.txBuffer[temp_tail];  /* Start transmission */
+        }
+        else {
+            UCSR2B &= ~(1 << UDRIE2); // disable UDRE interrupt
+        }
+    };
 #endif
 
 // Rx & UDRE vectors for USART3
 #if defined(HAS_USART3)
 
-Serial Serial3(3);
+    Serial Serial3(3);
 
-ISR(USART3_RX_vect)
-{
-    /* Read the received data */
-    uint8_t data = UDR3;
-    /* Calculate buffer index */
-    uint8_t temp_head = (Serial3.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
-    if (temp_head == Serial3.rxTailIndex) {
-        /* ERROR! Receive buffer overflow */
-        /* Do nothing for now */
-    }
-    else {
-        Serial3.rxHeadIndex = temp_head;
-        Serial3.rxBuffer[Serial3.rxHeadIndex] = data;
-    }
-};
-ISR(USART3_UDRE_vect)
-{
-    unsigned char temp_tail;
-    /* Check if all data is transmitted */
-    if (Serial3.txHeadIndex != Serial3.txTailIndex) {
+    ISR(USART3_RX_vect)
+    {
+        /* Read the received data */
+        uint8_t data = UDR3;
         /* Calculate buffer index */
-        temp_tail = (Serial3.txTailIndex + 1) & (BUFFER_SIZE - 1);
-        Serial3.txTailIndex = temp_tail;      /* Store new index */
+        uint8_t temp_head = (Serial3.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        if (temp_head == Serial3.rxTailIndex) {
+            /* ERROR! Receive buffer overflow */
+            /* Do nothing for now */
+        }
+        else {
+            Serial3.rxHeadIndex = temp_head;
+            Serial3.rxBuffer[Serial3.rxHeadIndex] = data;
+        }
+    };
+    ISR(USART3_UDRE_vect)
+    {
+        unsigned char temp_tail;
+        /* Check if all data is transmitted */
+        if (Serial3.txHeadIndex != Serial3.txTailIndex) {
+            /* Calculate buffer index */
+            temp_tail = (Serial3.txTailIndex + 1) & (BUFFER_SIZE - 1);
+            Serial3.txTailIndex = temp_tail;      /* Store new index */
 
-        UDR3 = Serial3.txBuffer[temp_tail];  /* Start transmission */
-    }
-    else {
-        UCSR3B &= ~(1 << UDRIE3); // disable UDRE interrupt
-    }
-};
+            UDR3 = Serial3.txBuffer[temp_tail];  /* Start transmission */
+        }
+        else {
+            UCSR3B &= ~(1 << UDRIE3); // disable UDRE interrupt
+        }
+    };
 #endif
 
 

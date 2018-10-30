@@ -11,23 +11,27 @@
 
 
 #if defined(UBRRH)
-#define HAS_USART
+    #define HAS_USART
 #endif
+
 #if defined(UBRR0H)
-#define HAS_USART0
+    #define HAS_USART0
 #endif
+
 #if defined(UBRR1H)
-#define HAS_USART1
+    #define HAS_USART1
 #endif
+
 #if defined(UBRR2H)
-#define HAS_USART2
+    #define HAS_USART2
 #endif
+
 #if defined(UBRR3H)
-#define HAS_USART3
+    #define HAS_USART3
 #endif
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 64
+    #define BUFFER_SIZE 64
 #endif
 
 /****************************************************************/
@@ -171,24 +175,19 @@ public:
 };
 
 #if defined(HAS_USART) || defined(HAS_USART0)
-
-extern Serial Serial0;
-
+    extern Serial Serial0;
 #endif
+
 #if defined(HAS_USART1)
-
-extern Serial Serial1;
-
+    extern Serial Serial1;
 #endif
+
 #if defined(HAS_USART2)
-
-extern Serial Serial2;
-
+    extern Serial Serial2;
 #endif
+
 #if defined(HAS_USART3)
-
-extern Serial Serial3;
-
+    extern Serial Serial3;
 #endif
 
 #endif //ATMEGA_SERIAL_H
