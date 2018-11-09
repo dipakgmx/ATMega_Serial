@@ -98,7 +98,7 @@ Serial::Serial(uint8_t PORTNUM)
     }
     /** default communication settings **/
     // use no parity
-    this->setParity(UsartParityEL::EVEN);
+    this->setParity(UsartParityEL::NONE);
     // use one stop bit
     this->setStopBit(UsartStopBitEL::ONE);
     // frame (data) length = 8 bits
