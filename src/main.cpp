@@ -5,7 +5,7 @@ int main()
 {
     cli();
     // start communication at a baud rate of 115200
-    Serial0.begin(9600);
+    Serial0.begin(9600, USARTOperatingMode::ASYNC_NORMAL);
     Serial1.begin(9600);
     sei();
     // read the response data

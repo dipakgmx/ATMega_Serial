@@ -38,9 +38,9 @@
 /****************************************************************/
 enum class USARTOperatingMode
 {
-    ASYNC_NORMAL        = 0,
-    ASYNC_DOUBLE_SPEED  = 1,
-    SYNC_MASTER         = 2
+    ASYNC_NORMAL        = 0,    /*!<Asynchronous Normal mode */
+    ASYNC_DOUBLE_SPEED  = 1,    /*!<Asynchronous Double Speed */
+    SYNC_MASTER         = 2     /*!<Synchronous Master mode */
 };
 
 /****************************************************************/
@@ -104,16 +104,19 @@ public:
 
     // Buffer Setup
     // Receiving buffer - Rx
-    volatile uint8_t rxBuffer[BUFFER_SIZE];
-    volatile uint8_t rxHeadIndex;
-    volatile uint8_t rxTailIndex;
+    volatile uint8_t rxBuffer[BUFFER_SIZE]; /*!< Receiver buffer to hold values received from USART */
+    volatile uint8_t rxHeadIndex;   /*!< Receiver buffer head index. Indexes to the oldest values within the buffer
+ * that hasn't been read yet */
+    volatile uint8_t rxTailIndex;   /*!< Receiver buffer tail index. Indexes to the latest value that was received */
     // Transmission buffer - Rx
-    volatile uint8_t txBuffer[BUFFER_SIZE];
-    volatile uint8_t txHeadIndex;
-    volatile uint8_t txTailIndex;
+    volatile uint8_t txBuffer[BUFFER_SIZE]; /*!< Transmission buffer to hold values before being sent on the USART */
+    volatile uint8_t txHeadIndex;   /*!< Transmission buffer head index. Indexes to the latest value written to the
+ * transmission buffer*/
+    volatile uint8_t txTailIndex;   /*!< Transmission buffer tail index. Indexes to the value that shall be
+ * transmitted when USART line is free*/
 
 private:
-    uint8_t portNumber;
+    uint8_t portNumber; /*!< Serial communication port number*/
     USARTOperatingMode OperatingMode;
     USARTParity Parity;
     USARTStopBits StopBits;

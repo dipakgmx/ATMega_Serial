@@ -109,6 +109,28 @@ Serial::Serial(const uint8_t port)
     }
 }
 
+/*!
+ * Function to initialise USART communication
+ * @param baud The USART communication baud rate - defaulted to 9600
+ * @param mode Sets the operating mode. Either Asynchronous Normal mode, Asynchronous Double Speed mode or Synchronous
+ * Master mode. Possible value are:
+ *      ASYNC_NORMAL        = 0,
+ *      ASYNC_DOUBLE_SPEED  = 1,
+ *      SYNC_MASTER         = 2
+ * @param parity Sets the parity bit - defaulted to NONE. Possible values are:
+ *      NONE    = 0,
+ *      EVEN    = 2,
+ *      ODD     = 3
+ * @param stopBits Sets the number of stop bits - default to ONE. Possible values are:
+ *      ONE = 1,
+ *      TWO = 2
+ * @param frameLength Sets the number of bits per frame - default value of 8 bits(EIGHT_BITS). Possible values are:
+ *      FIVE_BITS   = 5,
+ *      SIX_BITS    = 6,
+ *      SEVEN_BITS  = 7,
+ *      EIGHT_BITS  = 8,
+ *      NINE_BITS   = 9
+ */
 void Serial::begin(const uint32_t baud,
                    const USARTOperatingMode mode,
                    const USARTParity parity,
@@ -135,7 +157,14 @@ void Serial::begin(const uint32_t baud,
     this->setOpMode(baud, OperatingMode);
 }
 
-void Serial::setOpMode(const uint32_t baud, const enum USARTOperatingMode mode)
+/*!
+ * Function sets the Sets the operating mode. Either Asynchronous Normal mode, Asynchronous Double Speed mode or
+ * Synchronous Master mode
+ * @param baud The USART communication baud rate
+ * @param mode The desired operating mode
+ */
+void Serial::setOpMode(const uint32_t baud,
+                    const enum USARTOperatingMode mode)
 {
     uint16_t bRate = 0;
 
@@ -175,6 +204,15 @@ void Serial::setOpMode(const uint32_t baud, const enum USARTOperatingMode mode)
     *(this->UBRRnL) = (uint8_t) (bRate & 0xFF);
 }
 
+/*!
+ * Function to set the number of bits per frame
+ * @param frameLength The frame length value. Possible values are:
+ *      FIVE_BITS   = 5,
+ *      SIX_BITS    = 6,
+ *      SEVEN_BITS  = 7,
+ *      EIGHT_BITS  = 8,
+ *      NINE_BITS   = 9
+ */
 void Serial::setFrameLength(enum USARTFrameLength frameLength)
 {
     /************************************************************************/
@@ -221,9 +259,21 @@ void Serial::setFrameLength(enum USARTFrameLength frameLength)
             *(this->UCSRnC) |= (1 << this->UCSZn1);
             *(this->UCSRnB) |= (1 << this->UCSZn2);
             break;
+
+        default: // Defaulting to 8 bits
+            *(this->UCSRnC) |= (1 << this->UCSZn0);
+            *(this->UCSRnC) |= (1 << this->UCSZn1);
+            *(this->UCSRnB) &= ~(1 << this->UCSZn2);
+            break;
     }
 }
 
+/*!
+ * Function sets the number of stop bits to be used in the USART communication
+ * @param stopBit Sets the number of stop bits - default to ONE. Possible values are:
+ *      ONE = 1,
+ *      TWO = 2
+ */
 void Serial::setStopBit(USARTStopBits stopBit)
 {
     /************************************************************************/
@@ -247,6 +297,13 @@ void Serial::setStopBit(USARTStopBits stopBit)
     }
 }
 
+/*!
+ * Function sets the partity bits to be used for the USART communication
+ * @param parity Sets the parity bit - defaulted to NONE. Possible values are:
+ *      NONE    = 0,
+ *      EVEN    = 2,
+ *      ODD     = 3
+ */
 void Serial::setParity(enum USARTParity parity)
 {
     /************************************************************************/
@@ -279,6 +336,10 @@ void Serial::setParity(enum USARTParity parity)
     }
 }
 
+/*!
+ * Clear the buffers - reset buffer pointers to their initial state
+ * @return Either true or False.
+ */
 bool Serial::clear()
 {
     /************************************************************************/
@@ -298,15 +359,21 @@ bool Serial::clear()
     return true;
 }
 
+/*!
+ * Function flushess the transmission and receive buffer indices */
+ */
 void Serial::flushBuffer()
 {
-    /* Flush receive buffer */
     this->rxHeadIndex = 0;
     this->rxTailIndex = 0;
     this->txHeadIndex = 0;
     this->txTailIndex = 0;
 }
 
+/*!
+ * Function reads one byte at a time from the receiver buffer, and increments the tail index by one
+ * @return one byte from the receiver buffer
+ */
 uint8_t Serial::read()
 {
     uint8_t tmptail;
@@ -317,29 +384,49 @@ uint8_t Serial::read()
     return rxBuffer[tmptail];
 }
 
+/*!
+ * Function to transmit one byte of data
+ * @param data Data to be transmitted
+ */
 void Serial::write(const uint8_t data)
 {
-    uint8_t tmphead;
-    tmphead = static_cast<uint8_t>((txHeadIndex + 1) & (BUFFER_SIZE - 1));
-    while (tmphead == Serial::txTailIndex) { ;/* wait for free space in buffer */
+    // Create a temporary index to point to the head of the buffer
+    uint8_t tmp_head_index;
+    // Calculate the next value of the head index
+    tmp_head_index = static_cast<uint8_t>((txHeadIndex + 1) & (BUFFER_SIZE - 1));
+
+    while (tmp_head_index == Serial::txTailIndex) { ;/* wait for free space in buffer */
     }
-    txBuffer[tmphead] = data;
-    txHeadIndex = tmphead;
+    // Load data into the transmission buffer and the next free position i.e., tmp_head_index
+    txBuffer[tmp_head_index] = data;
+    // Update global index to the incremented value
+    txHeadIndex = tmp_head_index;
     // Enable UDRE interrupt
     *(this->UCSRnB) |= (1 << this->UDRIEn); // enable UDRE interrupt
 }
 
+/*!
+ * Function to transmit a char array. Overloaded write() function
+ * @param data Pointer to the a char array
+ */
 void Serial::write(const char *data)
 {
     while ((*data) != '\0')   // Looping until end of char array '\0' is encountered
         write(static_cast<const uint8_t>(*data++));
 }
 
+/*!
+ * Functions lets know if there is any data received on the receiver buffer
+ * @return
+ */
 bool Serial::rxDataAvailable()
 {
     return rxHeadIndex != rxTailIndex;
 }
 
+/*!
+ * Destructor
+ */
 Serial::~Serial()
 {
 
