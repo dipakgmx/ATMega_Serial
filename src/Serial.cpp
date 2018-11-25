@@ -5,113 +5,183 @@
 #include "Serial.h"
 #include <stdlib.h>
 
-Serial::Serial(uint8_t PORTNUM)
+Serial::Serial(const uint8_t port)
 {
-    this->portNumber = PORTNUM;
+    this->portNumber = port;
 
     switch (portNumber) {
-    case 0:this->UDRn = &UDR0;
-        this->UCSRnA = &UCSR0A;
-        this->UCSRnB = &UCSR0B;
-        this->UCSRnC = &UCSR0C;
-        this->UBRRnH = &UBRR0H;
-        this->UBRRnL = &UBRR0L;
-        this->TXENn = TXEN0;
-        this->RXENn = RXEN0;
-        this->UDREn = UDRE0;
-        this->U2Xn = U2X0;
-        this->RXCIEn = RXCIE0;
-        this->USBSn = USBS0;
-        this->UPMn0 = UPM00;
-        this->UPMn1 = UPM01;
-        this->UCSZn0 = UCSZ00;
-        this->UCSZn1 = UCSZ01;
-        this->UCSZn2 = UCSZ02;
-        this->UMSELn0 = UMSEL00;
-        this->UMSELn1 = UMSEL01;
-        this->UDRIEn = UDRIE0;
+
+    case 0:
+        this->UDRn      = &UDR0;
+        this->UCSRnA    = &UCSR0A;
+        this->UCSRnB    = &UCSR0B;
+        this->UCSRnC    = &UCSR0C;
+        this->UBRRnH    = &UBRR0H;
+        this->UBRRnL    = &UBRR0L;
+        this->TXENn     = TXEN0;
+        this->RXENn     = RXEN0;
+        this->UDREn     = UDRE0;
+        this->U2Xn      = U2X0;
+        this->RXCIEn    = RXCIE0;
+        this->USBSn     = USBS0;
+        this->UPMn0     = UPM00;
+        this->UPMn1     = UPM01;
+        this->UCSZn0    = UCSZ00;
+        this->UCSZn1    = UCSZ01;
+        this->UCSZn2    = UCSZ02;
+        this->UMSELn0   = UMSEL00;
+        this->UMSELn1   = UMSEL01;
+        this->UDRIEn    = UDRIE0;
         break;
-    case 1:this->UDRn = &UDR1;
-        this->UCSRnA = &UCSR1A;
-        this->UCSRnB = &UCSR1B;
-        this->UCSRnC = &UCSR1C;
-        this->UBRRnH = &UBRR1H;
-        this->UBRRnL = &UBRR1L;
-        this->TXENn = TXEN1;
-        this->RXENn = RXEN1;
-        this->UDREn = UDRE1;
-        this->U2Xn = U2X1;
-        this->RXCIEn = RXCIE1;
-        this->USBSn = USBS1;
-        this->UPMn0 = UPM10;
-        this->UPMn1 = UPM11;
-        this->UCSZn0 = UCSZ10;
-        this->UCSZn1 = UCSZ11;
-        this->UCSZn2 = UCSZ12;
-        this->UMSELn0 = UMSEL10;
-        this->UMSELn1 = UMSEL11;
-        this->UDRIEn = UDRIE1;
+
+    case 1:
+        this->UDRn      = &UDR1;
+        this->UCSRnA    = &UCSR1A;
+        this->UCSRnB    = &UCSR1B;
+        this->UCSRnC    = &UCSR1C;
+        this->UBRRnH    = &UBRR1H;
+        this->UBRRnL    = &UBRR1L;
+        this->TXENn     = TXEN1;
+        this->RXENn     = RXEN1;
+        this->UDREn     = UDRE1;
+        this->U2Xn      = U2X1;
+        this->RXCIEn    = RXCIE1;
+        this->USBSn     = USBS1;
+        this->UPMn0     = UPM10;
+        this->UPMn1     = UPM11;
+        this->UCSZn0    = UCSZ10;
+        this->UCSZn1    = UCSZ11;
+        this->UCSZn2    = UCSZ12;
+        this->UMSELn0   = UMSEL10;
+        this->UMSELn1   = UMSEL11;
+        this->UDRIEn    = UDRIE1;
         break;
-    case 2:this->UDRn = &UDR2;
-        this->UCSRnA = &UCSR2A;
-        this->UCSRnB = &UCSR2B;
-        this->UCSRnC = &UCSR2C;
-        this->UBRRnH = &UBRR2H;
-        this->UBRRnL = &UBRR2L;
-        this->TXENn = TXEN2;
-        this->RXENn = RXEN2;
-        this->UDREn = UDRE2;
-        this->U2Xn = U2X2;
-        this->RXCIEn = RXCIE2;
-        this->USBSn = USBS2;
-        this->UPMn0 = UPM20;
-        this->UPMn1 = UPM21;
-        this->UCSZn0 = UCSZ20;
-        this->UCSZn1 = UCSZ21;
-        this->UCSZn2 = UCSZ22;
-        this->UMSELn0 = UMSEL20;
-        this->UMSELn1 = UMSEL21;
-        this->UDRIEn = UDRIE2;
+
+    case 2:
+        this->UDRn      = &UDR2;
+        this->UCSRnA    = &UCSR2A;
+        this->UCSRnB    = &UCSR2B;
+        this->UCSRnC    = &UCSR2C;
+        this->UBRRnH    = &UBRR2H;
+        this->UBRRnL    = &UBRR2L;
+        this->TXENn     = TXEN2;
+        this->RXENn     = RXEN2;
+        this->UDREn     = UDRE2;
+        this->U2Xn      = U2X2;
+        this->RXCIEn    = RXCIE2;
+        this->USBSn     = USBS2;
+        this->UPMn0     = UPM20;
+        this->UPMn1     = UPM21;
+        this->UCSZn0    = UCSZ20;
+        this->UCSZn1    = UCSZ21;
+        this->UCSZn2    = UCSZ22;
+        this->UMSELn0   = UMSEL20;
+        this->UMSELn1   = UMSEL21;
+        this->UDRIEn    = UDRIE2;
         break;
-    case 3:this->UDRn = &UDR3;
-        this->UCSRnA = &UCSR3A;
-        this->UCSRnB = &UCSR3B;
-        this->UCSRnC = &UCSR3C;
-        this->UBRRnH = &UBRR3H;
-        this->UBRRnL = &UBRR3L;
-        this->TXENn = TXEN3;
-        this->RXENn = RXEN3;
-        this->UDREn = UDRE3;
-        this->U2Xn = U2X3;
-        this->RXCIEn = RXCIE3;
-        this->USBSn = USBS3;
-        this->UPMn0 = UPM30;
-        this->UPMn1 = UPM31;
-        this->UCSZn0 = UCSZ30;
-        this->UCSZn1 = UCSZ31;
-        this->UCSZn2 = UCSZ32;
-        this->UMSELn0 = UMSEL30;
-        this->UMSELn1 = UMSEL31;
-        this->UDRIEn = UDRIE3;
+
+    case 3:
+        this->UDRn      = &UDR3;
+        this->UCSRnA    = &UCSR3A;
+        this->UCSRnB    = &UCSR3B;
+        this->UCSRnC    = &UCSR3C;
+        this->UBRRnH    = &UBRR3H;
+        this->UBRRnL    = &UBRR3L;
+        this->TXENn     = TXEN3;
+        this->RXENn     = RXEN3;
+        this->UDREn     = UDRE3;
+        this->U2Xn      = U2X3;
+        this->RXCIEn    = RXCIE3;
+        this->USBSn     = USBS3;
+        this->UPMn0     = UPM30;
+        this->UPMn1     = UPM31;
+        this->UCSZn0    = UCSZ30;
+        this->UCSZn1    = UCSZ31;
+        this->UCSZn2    = UCSZ32;
+        this->UMSELn0   = UMSEL30;
+        this->UMSELn1   = UMSEL31;
+        this->UDRIEn    = UDRIE3;
         break;
-    default:break;
+
+    default:
+        break;
+
     }
-    /** default communication settings **/
-    // use no parity
-    this->setParity(UsartParityEL::NONE);
-    // use one stop bit
-    this->setStopBit(UsartStopBitEL::ONE);
-    // frame (data) length = 8 bits
-    this->setFrameLength(UsartFrameLengthEL::EIGHT_BITS);
 }
 
-void Serial::setFrameLength(UsartFrameLengthEL frameLength)
+void Serial::begin(const uint32_t baud,
+                   const USARTOperatingMode mode,
+                   const USARTParity parity,
+                   const USARTStopBits stopBits,
+                   const USARTFrameLength frameLength)
+{
+    this->Parity = parity;
+    this->setParity(Parity);
+
+    this->StopBits = stopBits;
+    this->setStopBit(StopBits);
+
+    this->FrameLength = frameLength;
+    this->setFrameLength(FrameLength);
+
+    this->flushBuffer();
+
+    /* Enable receiver and transmitter */
+    *(this->UCSRnB) |= (1 << this->TXENn);
+    *(this->UCSRnB) |= (1 << this->RXENn);
+    *(this->UCSRnB) |= (1 << this->RXCIEn);
+
+    this->OperatingMode = mode;
+    this->setOpMode(baud, OperatingMode);
+}
+
+void Serial::setOpMode(const uint32_t baud, const enum USARTOperatingMode mode)
+{
+    uint16_t bRate = 0;
+
+    // compute baud rate value for UBRR register
+    /***********************************************************************/
+    /*UMSELn Bits Settings                                                 */
+    /*      UMSELn1         UMSELn0         Mode                           */
+    /*        0                0            Asynchronous USART             */
+    /*        0                1            Synchronous USART              */
+    /*        1                0            (Reserved)                     */
+    /*        1                1            Master SPI (MSPIM)             */
+    /***********************************************************************/
+    switch (mode) {
+
+        case USARTOperatingMode::SYNC_MASTER:
+            bRate = static_cast<uint16_t>((F_CPU / 2 / baud - 1) / 2);
+            *(this->UCSRnC) |= (1 << this->UMSELn0);
+            *(this->UCSRnC) &= ~(1 << this->UMSELn1);
+            break;
+
+        case USARTOperatingMode::ASYNC_DOUBLE_SPEED:
+            bRate = static_cast<uint16_t>((F_CPU / 4 / baud - 1) / 2);
+            // UMSELn0 = 0 and UMSELn1 = 0 for asynchronous mode
+            *(this->UCSRnC) &= ~(1 << this->UMSELn0);
+            *(this->UCSRnC) &= ~(1 << this->UMSELn1);
+            break;
+
+        case USARTOperatingMode::ASYNC_NORMAL:
+            bRate = static_cast<uint16_t>((F_CPU / 16 / baud) - 1);
+            // UMSELn0 = 0 and UMSELn1 = 0 for asynchronous mode
+            *(this->UCSRnC) &= ~(1 << this->UMSELn0);
+            *(this->UCSRnC) &= ~(1 << this->UMSELn1);
+            break;
+    }
+
+    *(this->UBRRnH) = (uint8_t) (bRate >> 8);
+    *(this->UBRRnL) = (uint8_t) (bRate & 0xFF);
+}
+
+void Serial::setFrameLength(enum USARTFrameLength frameLength)
 {
     /************************************************************************/
     /* @method                                                              */
     /* Set UART/USART frame length (5 to 9 bits)                            */
     /* @param frameLength                                                   */
-    /*          the frame length - values from UsartFrameLengthEL.xxx       */
+    /*          the frame length - values from USARTFrameLength.xxx       */
     /* UCSZn Bits Settings                                                  */
     /*  UCSZn2       UCSZn1      UCSZn0       Character Size                */
     /*    0            0           0               5-bit                    */
@@ -121,103 +191,69 @@ void Serial::setFrameLength(UsartFrameLengthEL frameLength)
     /*    1            1           1               9-bit                    */
     /************************************************************************/
     switch (frameLength) {
-    case UsartFrameLengthEL::FIVE_BITS:*(this->UCSRnC) &= ~(1 << this->UCSZn0);
-        *(this->UCSRnC) &= ~(1 << this->UCSZn1);
-        *(this->UCSRnB) &= ~(1 << this->UCSZn2);
-        break;
-    case UsartFrameLengthEL::SIX_BITS:*(this->UCSRnC) |= (1 << this->UCSZn0);
-        *(this->UCSRnC) &= ~(1 << this->UCSZn1);
-        *(this->UCSRnB) &= ~(1 << this->UCSZn2);
-        break;
-    case UsartFrameLengthEL::SEVEN_BITS:*(this->UCSRnC) &= ~(1 << this->UCSZn0);
-        *(this->UCSRnC) |= (1 << this->UCSZn1);
-        *(this->UCSRnB) &= ~(1 << this->UCSZn2);
-        break;
-    case UsartFrameLengthEL::EIGHT_BITS:*(this->UCSRnC) |= (1 << this->UCSZn0);
-        *(this->UCSRnC) |= (1 << this->UCSZn1);
-        *(this->UCSRnB) &= ~(1 << this->UCSZn2);
-        break;
-    case UsartFrameLengthEL::NINE_BITS:
-        // set data transmission mode: 9-bit (UCSZn2 = 1; UCSZn1 = 1; UCSZn0 = 1;)
-        *(this->UCSRnC) |= (1 << this->UCSZn0);
-        *(this->UCSRnC) |= (1 << this->UCSZn1);
-        *(this->UCSRnB) |= (1 << this->UCSZn2);
-        break;
+        case USARTFrameLength::FIVE_BITS:
+            *(this->UCSRnC) &= ~(1 << this->UCSZn0);
+            *(this->UCSRnC) &= ~(1 << this->UCSZn1);
+            *(this->UCSRnB) &= ~(1 << this->UCSZn2);
+            break;
+
+        case USARTFrameLength::SIX_BITS:
+            *(this->UCSRnC) |= (1 << this->UCSZn0);
+            *(this->UCSRnC) &= ~(1 << this->UCSZn1);
+            *(this->UCSRnB) &= ~(1 << this->UCSZn2);
+            break;
+
+        case USARTFrameLength::SEVEN_BITS:
+            *(this->UCSRnC) &= ~(1 << this->UCSZn0);
+            *(this->UCSRnC) |= (1 << this->UCSZn1);
+            *(this->UCSRnB) &= ~(1 << this->UCSZn2);
+            break;
+
+        case USARTFrameLength::EIGHT_BITS:
+            *(this->UCSRnC) |= (1 << this->UCSZn0);
+            *(this->UCSRnC) |= (1 << this->UCSZn1);
+            *(this->UCSRnB) &= ~(1 << this->UCSZn2);
+            break;
+
+        case USARTFrameLength::NINE_BITS:
+            // set data transmission mode: 9-bit (UCSZn2 = 1; UCSZn1 = 1; UCSZn0 = 1;)
+            *(this->UCSRnC) |= (1 << this->UCSZn0);
+            *(this->UCSRnC) |= (1 << this->UCSZn1);
+            *(this->UCSRnB) |= (1 << this->UCSZn2);
+            break;
     }
 }
 
-UsartFrameLengthEL Serial::getFrameLength()
-{
-    /************************************************************************/
-    /* @method                                                              */
-    /* Get UART/USART frame length                                          */
-    /* @return one of UsartFrameLengthEL.xxx                                */
-    /************************************************************************/
-    // UCSZn0 and UCSZn1 bits are found in the UCSRnC register
-    uint8_t ucsz0 = (*(this->UCSRnC) >> this->UCSZn0) & 1;
-    uint8_t ucsz1 = (*(this->UCSRnC) >> this->UCSZn1) & 1;
-    // UCSZn2 bit is found in the UCSRnB register
-    uint8_t ucsz2 = (*(this->UCSRnB) >> this->UCSZn2) & 1;
-    if (ucsz2 == 0 && ucsz1 == 0 && ucsz0 == 0) {
-        return UsartFrameLengthEL::FIVE_BITS;
-    }
-    else if (ucsz2 == 0 && ucsz1 == 0 && ucsz0 == 1) {
-        return UsartFrameLengthEL::SIX_BITS;
-    }
-    else if (ucsz2 == 0 && ucsz1 == 1 && ucsz0 == 0) {
-        return UsartFrameLengthEL::SEVEN_BITS;
-    }
-    else if (ucsz2 == 0 && ucsz1 == 1 && ucsz0 == 1) {
-        return UsartFrameLengthEL::EIGHT_BITS;
-    }
-    else if (ucsz2 == 1 && ucsz1 == 1 && ucsz0 == 1) {
-        return UsartFrameLengthEL::NINE_BITS;
-    }
-}
-
-void Serial::setStopBit(UsartStopBitEL stopBit)
+void Serial::setStopBit(USARTStopBits stopBit)
 {
     /************************************************************************/
     /* @method                                                              */
     /* Set UART/USART transmission stop bit                                 */
     /* @param stopBit                                                       */
-    /*          the stop bit - values from UsartStopBitEL.xxx               */
+    /*          the stop bit - values from StopBits.xxx               */
     /* USBS Bit Settings                                                    */
     /* USBSn = 0 => 1 Stop bit                                              */
     /* USBSn = 1 => 2 Stop bit                                              */
     /************************************************************************/
     switch (stopBit) {
         // one stop bit
-    case UsartStopBitEL::ONE:*(this->UCSRnC) &= ~(1 << this->USBSn);
-        break;
-        // two stop bits
-    case UsartStopBitEL::TWO:*(this->UCSRnC) |= (1 << this->USBSn);
-        break;
+        case USARTStopBits::ONE:
+            *(this->UCSRnC) &= ~(1 << this->USBSn);
+            break;
+            // two stop bits
+        case USARTStopBits::TWO:
+            *(this->UCSRnC) |= (1 << this->USBSn);
+            break;
     }
 }
 
-UsartStopBitEL Serial::getStopBit()
-{
-    /************************************************************************/
-    /* @method                                                              */
-    /* Set UART/USART transmission stop bit                                 */
-    /* @param stopBit                                                       */
-    /*          the stop bit - values from UsartStopBitEL.xxx               */
-    /************************************************************************/
-    uint8_t usbsBit = (*(this->UCSRnC) >> this->USBSn) & 1;
-    switch (usbsBit) {
-    case 0:return UsartStopBitEL::ONE;
-    case 1:return UsartStopBitEL::TWO;
-    }
-}
-
-void Serial::setParity(UsartParityEL parity)
+void Serial::setParity(enum USARTParity parity)
 {
     /************************************************************************/
     /* @method                                                              */
     /* Set UART/USART transmission parity                                   */
     /* @param parity                                                        */
-    /*          the parity - values from UsartParityEL.xxx                  */
+    /*          the parity - values from USARTParity.xxx                  */
     /*  UPMn Bits Settings                                                  */
     /*  UPMn1       UPMn0           Parity Mode                             */
     /*    0           0             Disabled                                */
@@ -226,88 +262,21 @@ void Serial::setParity(UsartParityEL parity)
     /*    1           1             Enabled, Odd Parity                     */
     /************************************************************************/
     switch (parity) {
-    case UsartParityEL::NONE:*(this->UCSRnC) &= ~(1 << this->UPMn0);
-        *(this->UCSRnC) &= ~(1 << this->UPMn1);
-        break;
-    case UsartParityEL::EVEN:*(this->UCSRnC) &= ~(1 << this->UPMn0);
-        *(this->UCSRnC) |= (1 << this->UPMn1);
-        break;
-    case UsartParityEL::ODD:*(this->UCSRnC) |= (1 << this->UPMn0);
-        *(this->UCSRnC) |= (1 << this->UPMn1);
-        break;
-    }
+        case USARTParity::NONE:
+            *(this->UCSRnC) &= ~(1 << this->UPMn0);
+            *(this->UCSRnC) &= ~(1 << this->UPMn1);
+            break;
 
-}
+        case USARTParity::EVEN:
+            *(this->UCSRnC) &= ~(1 << this->UPMn0);
+            *(this->UCSRnC) |= (1 << this->UPMn1);
+            break;
 
-UsartParityEL Serial::getParity()
-{
-    /************************************************************************/
-    /* @method                                                              */
-    /* Get UART/USART transmission parity                                   */
-    /* @return one of UsartParityEL.xxx                                     */
-    /************************************************************************/
-    uint8_t upm0 = (*(this->UCSRnC) >> this->UPMn0) & 1;
-    uint8_t upm1 = (*(this->UCSRnC) >> this->UPMn1) & 1;
-    if (upm0 == 0 && upm1 == 0) {
-        return UsartParityEL::NONE;
+        case USARTParity::ODD:
+            *(this->UCSRnC) |= (1 << this->UPMn0);
+            *(this->UCSRnC) |= (1 << this->UPMn1);
+            break;
     }
-    else if (upm0 == 0 && upm1 == 1) {
-        return UsartParityEL::EVEN;
-    }
-    if (upm0 == 1 && upm1 == 0) {
-        return UsartParityEL::ODD;
-    }
-    return UsartParityEL::NONE;
-}
-
-void Serial::begin(const uint32_t baud, uint16_t rxBuffMaxLen, UsartModeEL mode)
-{
-    /************************************************************************/
-    /* @method                                                              */
-    /* Start USART communication                                            */
-    /* NOTE: calling this produces also the RX buffer memory allocation     */
-    /* @param baud                                                          */
-    /*          the baud rate (in bps, e.g. 9600)                           */
-    /* @param rxBuffMaxLen                                                  */
-    /*          the maximum size (number of bytes) stored by the RX buffer  */
-    /* @param mode                                                          */
-    /*           the usart mode (one of UsartModeEL.xxx)                    */
-    /************************************************************************/
-    uint16_t bRate = 0;
-    this->flushBuffer();
-    /* Enable receiver and transmitter */
-    *(this->UCSRnB) |= (1 << this->TXENn);
-    *(this->UCSRnB) |= (1 << this->RXENn);
-    *(this->UCSRnB) |= (1 << this->RXCIEn);
-
-    // compute baud rate value for UBRR register
-    switch (mode) {
-        /***********************************************************************/
-        /*UMSELn Bits Settings                                                 */
-        /*      UMSELn1         UMSELn0         Mode                           */
-        /*        0                0            Asynchronous USART             */
-        /*        0                1            Synchronous USART              */
-        /*        1                0            (Reserved)                     */
-        /*        1                1            Master SPI (MSPIM)             */
-        /***********************************************************************/
-    case UsartModeEL::SYNC_MASTER:bRate = (F_CPU / 2 / baud - 1) / 2;
-        *(this->UCSRnC) |= (1 << this->UMSELn0);
-        *(this->UCSRnC) &= ~(1 << this->UMSELn1);
-        break;
-    case UsartModeEL::ASYNC_DOUBLE_SPEED:bRate = (F_CPU / 4 / baud - 1) / 2;
-        // UMSELn0 = 0 and UMSELn1 = 0 for asynchronous mode
-        *(this->UCSRnC) &= ~(1 << this->UMSELn0);
-        *(this->UCSRnC) &= ~(1 << this->UMSELn1);
-        break;
-    case UsartModeEL::ASYNC_NORMAL:bRate = ((F_CPU / 16 / baud) - 1);
-        // UMSELn0 = 0 and UMSELn1 = 0 for asynchronous mode
-        *(this->UCSRnC) &= ~(1 << this->UMSELn0);
-        *(this->UCSRnC) &= ~(1 << this->UMSELn1);
-        break;
-    }
-    *(this->UBRRnH) = (uint8_t) (bRate >> 8);
-    *(this->UBRRnL) = (uint8_t) (bRate & 0xFF);
-    /* Enable the USART Receive Complete interrupt (USART_RXC)*/
 }
 
 bool Serial::clear()
@@ -332,7 +301,6 @@ bool Serial::clear()
 void Serial::flushBuffer()
 {
     /* Flush receive buffer */
-
     this->rxHeadIndex = 0;
     this->rxTailIndex = 0;
     this->txHeadIndex = 0;
@@ -341,9 +309,9 @@ void Serial::flushBuffer()
 
 uint8_t Serial::read()
 {
-    unsigned char tmptail;
+    uint8_t tmptail;
     /* calculate /store buffer index */
-    tmptail = (this->rxTailIndex + 1) & (BUFFER_SIZE - 1);
+    tmptail = static_cast<uint8_t>((this->rxTailIndex + 1) & (BUFFER_SIZE - 1));
     this->rxTailIndex = tmptail;
     /* get data from receive buffer */
     return rxBuffer[tmptail];
@@ -352,7 +320,7 @@ uint8_t Serial::read()
 void Serial::write(const uint8_t data)
 {
     uint8_t tmphead;
-    tmphead = (txHeadIndex + 1) & (BUFFER_SIZE - 1);
+    tmphead = static_cast<uint8_t>((txHeadIndex + 1) & (BUFFER_SIZE - 1));
     while (tmphead == Serial::txTailIndex) { ;/* wait for free space in buffer */
     }
     txBuffer[tmphead] = data;
@@ -363,11 +331,11 @@ void Serial::write(const uint8_t data)
 
 void Serial::write(const char *data)
 {
-    while (*data)
-        write(*data++);
+    while ((*data) != '\0')   // Looping until end of char array '\0' is encountered
+        write(static_cast<const uint8_t>(*data++));
 }
 
-bool Serial::rxDataAvailabe()
+bool Serial::rxDataAvailable()
 {
     return rxHeadIndex != rxTailIndex;
 }
@@ -376,7 +344,6 @@ Serial::~Serial()
 {
 
 }
-
 
 // define the global USART object(s)
 // used to read/write via USART/Serial
@@ -388,6 +355,7 @@ Usart USART( 0);
   };
 #endif
 
+
 // Rx & UDRE vectors for USART0
 #if defined(HAS_USART0)
 
@@ -398,7 +366,7 @@ Usart USART( 0);
         /* Read the received data */
         uint8_t data = UDR0;
         /* Calculate buffer index */
-        uint8_t temp_head = (Serial0.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        uint8_t temp_head = static_cast<uint8_t>((Serial0.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
         if (temp_head == Serial0.rxTailIndex) {
             /* ERROR! Receive buffer overflow */
             /* Do nothing for now */
@@ -414,10 +382,11 @@ Usart USART( 0);
         /* Check if all data is transmitted */
         if (Serial0.txHeadIndex != Serial0.txTailIndex) {
             /* Calculate buffer index */
-            temp_tail = (Serial0.txTailIndex + 1) & (BUFFER_SIZE - 1);
-            Serial0.txTailIndex = temp_tail;      /* Store new index */
-
-            UDR0 = Serial0.txBuffer[temp_tail];  /* Start transmission */
+            temp_tail = static_cast<unsigned char>((Serial0.txTailIndex + 1) & (BUFFER_SIZE - 1));
+            /* Store new index */
+            Serial0.txTailIndex = temp_tail;
+            /* Start transmission */
+            UDR0 = Serial0.txBuffer[temp_tail];
         }
         else {
             UCSR0B &= ~(1 << UDRIE0); // disable UDRE interrupt
@@ -435,7 +404,7 @@ Usart USART( 0);
         /* Read the received data */
         uint8_t data = UDR1;
         /* Calculate buffer index */
-        uint8_t temp_head = (Serial1.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        uint8_t temp_head = static_cast<uint8_t>((Serial1.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
         if (temp_head == Serial1.rxTailIndex) {
             /* ERROR! Receive buffer overflow */
             /* Do nothing for now */
@@ -448,14 +417,15 @@ Usart USART( 0);
 
     ISR(USART1_UDRE_vect)
     {
-        unsigned char temp_tail;
+        uint8_t temp_tail;
         /* Check if all data is transmitted */
         if (Serial1.txHeadIndex != Serial1.txTailIndex) {
             /* Calculate buffer index */
-            temp_tail = (Serial1.txTailIndex + 1) & (BUFFER_SIZE - 1);
-            Serial1.txTailIndex = temp_tail;      /* Store new index */
-
-            UDR1 = Serial1.txBuffer[temp_tail];  /* Start transmission */
+            temp_tail = static_cast<uint8_t>((Serial1.txTailIndex + 1) & (BUFFER_SIZE - 1));
+            /* Store new index */
+            Serial1.txTailIndex = temp_tail;
+            /* Start transmission */
+            UDR1 = Serial1.txBuffer[temp_tail];
         }
         else {
             UCSR1B &= ~(1 << UDRIE1); // disable UDRE interrupt
@@ -473,7 +443,7 @@ Usart USART( 0);
         /* Read the received data */
         uint8_t data = UDR2;
         /* Calculate buffer index */
-        uint8_t temp_head = (Serial2.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        uint8_t temp_head = static_cast<uint8_t>((Serial2.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
         if (temp_head == Serial2.rxTailIndex) {
             /* ERROR! Receive buffer overflow */
             /* Do nothing for now */
@@ -483,16 +453,18 @@ Usart USART( 0);
             Serial2.rxBuffer[Serial2.rxHeadIndex] = data;
         }
     };
+
     ISR(USART2_UDRE_vect)
     {
-        unsigned char temp_tail;
+        uint8_t temp_tail;
         /* Check if all data is transmitted */
         if (Serial2.txHeadIndex != Serial2.txTailIndex) {
             /* Calculate buffer index */
-            temp_tail = (Serial2.txTailIndex + 1) & (BUFFER_SIZE - 1);
-            Serial2.txTailIndex = temp_tail;      /* Store new index */
-
-            UDR2 = Serial2.txBuffer[temp_tail];  /* Start transmission */
+            temp_tail = static_cast<uint8_t>((Serial2.txTailIndex + 1) & (BUFFER_SIZE - 1));
+            /* Store new index */
+            Serial2.txTailIndex = temp_tail;
+            /* Start transmission */
+            UDR2 = Serial2.txBuffer[temp_tail];
         }
         else {
             UCSR2B &= ~(1 << UDRIE2); // disable UDRE interrupt
@@ -510,7 +482,7 @@ Usart USART( 0);
         /* Read the received data */
         uint8_t data = UDR3;
         /* Calculate buffer index */
-        uint8_t temp_head = (Serial3.rxHeadIndex + 1) & (BUFFER_SIZE - 1);
+        uint8_t temp_head = static_cast<uint8_t>((Serial3.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
         if (temp_head == Serial3.rxTailIndex) {
             /* ERROR! Receive buffer overflow */
             /* Do nothing for now */
@@ -520,32 +492,21 @@ Usart USART( 0);
             Serial3.rxBuffer[Serial3.rxHeadIndex] = data;
         }
     };
+
     ISR(USART3_UDRE_vect)
     {
-        unsigned char temp_tail;
+        uint8_t temp_tail;
         /* Check if all data is transmitted */
         if (Serial3.txHeadIndex != Serial3.txTailIndex) {
             /* Calculate buffer index */
-            temp_tail = (Serial3.txTailIndex + 1) & (BUFFER_SIZE - 1);
-            Serial3.txTailIndex = temp_tail;      /* Store new index */
-
-            UDR3 = Serial3.txBuffer[temp_tail];  /* Start transmission */
+            temp_tail = static_cast<uint8_t>((Serial3.txTailIndex + 1) & (BUFFER_SIZE - 1));
+            /* Store new index */
+            Serial3.txTailIndex = temp_tail;
+            /* Start transmission */
+            UDR3 = Serial3.txBuffer[temp_tail];
         }
         else {
             UCSR3B &= ~(1 << UDRIE3); // disable UDRE interrupt
         }
     };
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-

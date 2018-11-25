@@ -10,7 +10,7 @@ int main()
     sei();
     // read the response data
     while (true) {
-        if (Serial1.rxDataAvailabe()) {
+        if (Serial1.rxDataAvailable()) {
             uint8_t data = Serial1.read();
             Serial0.write(data);
         }

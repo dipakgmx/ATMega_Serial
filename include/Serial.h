@@ -33,31 +33,30 @@
 #ifndef BUFFER_SIZE
     #define BUFFER_SIZE 64
 #endif
-
 /****************************************************************/
 /* Enumeration of communication modes supported by USART        */
 /****************************************************************/
-enum class UsartModeEL
+enum class USARTOperatingMode
 {
-    ASYNC_NORMAL = 0,
-    ASYNC_DOUBLE_SPEED = 1,
-    SYNC_MASTER = 2
+    ASYNC_NORMAL        = 0,
+    ASYNC_DOUBLE_SPEED  = 1,
+    SYNC_MASTER         = 2
 };
 
 /****************************************************************/
 /* Enumeration defining communication parity modes              */
 /****************************************************************/
-enum class UsartParityEL
+enum class USARTParity
 {
-    NONE = 0,
-    EVEN = 2,
-    ODD = 3
+    NONE    = 0,
+    EVEN    = 2,
+    ODD     = 3
 };
 
 /****************************************************************/
 /* Enumeration defining communication stop bits                 */
 /****************************************************************/
-enum class UsartStopBitEL
+enum class USARTStopBits
 {
     ONE = 1,
     TWO = 2
@@ -66,37 +65,42 @@ enum class UsartStopBitEL
 /****************************************************************/
 /* Enumeration defining communication frame length              */
 /****************************************************************/
-enum class UsartFrameLengthEL
+enum class USARTFrameLength
 {
-    FIVE_BITS = 5,
-    SIX_BITS = 6,
-    SEVEN_BITS = 7,
-    EIGHT_BITS = 8,
-    NINE_BITS = 9
+    FIVE_BITS   = 5,
+    SIX_BITS    = 6,
+    SEVEN_BITS  = 7,
+    EIGHT_BITS  = 8,
+    NINE_BITS   = 9
 };
+
 
 class Serial
 {
 public:
-    Serial(uint8_t portNumber);
+    explicit Serial(uint8_t port);
+
     ~Serial();
-    void setFrameLength(UsartFrameLengthEL frameLength);
-    UsartFrameLengthEL getFrameLength();
-    void setStopBit(UsartStopBitEL stopBit);
-    UsartStopBitEL getStopBit();
-    void setParity(UsartParityEL parity);
-    UsartParityEL getParity();
-    void begin(const uint32_t baud, uint16_t rxBuffMaxLen, UsartModeEL mode);
-    inline void begin(const uint32_t baud, UsartModeEL mode = UsartModeEL::ASYNC_NORMAL)
-    { begin(baud, 64, mode); };
+
+    void begin(uint32_t baud,
+               USARTOperatingMode mode = USARTOperatingMode::ASYNC_NORMAL,
+               USARTParity parity = USARTParity::NONE,
+               USARTStopBits stopBits = USARTStopBits::ONE,
+               USARTFrameLength frameLength = USARTFrameLength::EIGHT_BITS);
+
+    void setFrameLength(USARTFrameLength frameLength);
+    void setStopBit(USARTStopBits stopBit);
+    void setParity(USARTParity parity);
+    void setOpMode(uint32_t baud, USARTOperatingMode mode);
+
     bool clear();
     // friend operation which deals with USARTn_RX_vector(s) interrupts
     // using friend operation allows to access private fields of this class
     void flushBuffer();
     uint8_t read();
-    void write(const uint8_t data);
+    void write(uint8_t data);
     void write(const char *data);
-    bool rxDataAvailabe();
+    bool rxDataAvailable();
 
     // Buffer Setup
     // Receiving buffer - Rx
@@ -108,7 +112,12 @@ public:
     volatile uint8_t txHeadIndex;
     volatile uint8_t txTailIndex;
 
+private:
     uint8_t portNumber;
+    USARTOperatingMode OperatingMode;
+    USARTParity Parity;
+    USARTStopBits StopBits;
+    USARTFrameLength FrameLength;
 
     /** MCU used registry */
     volatile uint8_t *UDRn;
@@ -117,6 +126,7 @@ public:
     volatile uint8_t *UCSRnC;
     volatile uint8_t *UBRRnH;
     volatile uint8_t *UBRRnL;
+
 
     /* MCU dependent registry bits (positions) */
     // TXENn: Transmitter Enable n
