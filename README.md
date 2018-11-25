@@ -76,7 +76,7 @@ void begin(uint32_t baud,
 values are:  
     `ONE     = 0`  
     `TWO    = 2`  
--  `frameLength` SSets the number of bits per frame - default value of 8 bits - `USARTFrameLength::EIGHT_BITS`. Possible values are:  
+-  `frameLength` Sets the number of bits per frame - default value of 8 bits - `USARTFrameLength::EIGHT_BITS`. Possible values are:  
     `FIVE_BITS   = 5`  
     `SIX_BITS    = 6`  
     `SEVEN_BITS  = 7`  
