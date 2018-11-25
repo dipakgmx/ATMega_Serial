@@ -1,12 +1,12 @@
 # ATMega2560-serial
 
-Serial communacation (USART) on the ATMega 2560 using C++ classes
+An interrupt driven Serial communication (USART) Library written in C++ for ATMega 2560
 
 ## How to use:
 Modify the `CMakeLists.txt` file:
 
 ### Set the flash option:
-Setting this to `YES` flashes the generated `.hex` file into the microcontroller
+Setting this to `YES` flashes the generated `.hex` file into the micro-controller
 ```
 SET(FLASH YES)
 ```
@@ -19,7 +19,7 @@ The default Arduino programmer was used in the `CMakeLists.txt`.
 ```
 SET(PROGRAMMER wiring) 
 ```
-### Select the coorect port for flashing:
+### Select the correct port for flashing:
 ```
 set(PORT /dev/ttyACM0)
 ```
