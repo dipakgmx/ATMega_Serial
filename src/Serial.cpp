@@ -360,7 +360,7 @@ bool Serial::clear()
 }
 
 /*!
- * Function flushess the transmission and receive buffer indices */
+ * Function flushes the transmission and receive buffer indices
  */
 void Serial::flushBuffer()
 {
