@@ -1,6 +1,6 @@
 # ATMega2560-serial
 
-An interrupt driven Serial communication (USART) Library written in C++ for ATMega 2560
+An interrupt driven Serial communication (USART) Library written in C++ for ATmega640/1280/2560
 
 ## How to use:
 Modify the `CMakeLists.txt` file:
