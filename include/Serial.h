@@ -7,40 +7,49 @@
 
 
 #include <avr/interrupt.h>
-#include <stdlib.h>
-
-
-#if defined(UBRRH)
-    #define HAS_USART
-#endif
 
 #if defined(UBRR0H)
-    #define HAS_USART0
+#define HAS_USART0
 #endif
 
 #if defined(UBRR1H)
-    #define HAS_USART1
+#define HAS_USART1
 #endif
 
 #if defined(UBRR2H)
-    #define HAS_USART2
+#define HAS_USART2
 #endif
 
 #if defined(UBRR3H)
-    #define HAS_USART3
+#define HAS_USART3
 #endif
 
 #ifndef BUFFER_SIZE
-    #define BUFFER_SIZE 64
+#define BUFFER_SIZE 16
 #endif
+
+/****************************************************************/
+/* Defining ISR vectors                                         */
+/****************************************************************/
+extern "C" void USART0_RX_vect(void) __attribute__ ((signal));
+extern "C" void USART0_UDRE_vect(void) __attribute__ ((signal));
+extern "C" void USART1_RX_vect(void) __attribute__ ((signal));
+extern "C" void USART1_UDRE_vect(void) __attribute__ ((signal));
+extern "C" void USART2_RX_vect(void) __attribute__ ((signal));
+extern "C" void USART2_UDRE_vect(void) __attribute__ ((signal));
+extern "C" void USART3_RX_vect(void) __attribute__ ((signal));
+extern "C" void USART3_UDRE_vect(void) __attribute__ ((signal));
+
+
+
 /****************************************************************/
 /* Enumeration of communication modes supported by USART        */
 /****************************************************************/
 enum class USARTOperatingMode
 {
-    ASYNC_NORMAL        = 0,    /*!<Asynchronous Normal mode */
-    ASYNC_DOUBLE_SPEED  = 1,    /*!<Asynchronous Double Speed */
-    SYNC_MASTER         = 2     /*!<Synchronous Master mode */
+    ASYNC_NORMAL = 0,    /*!<Asynchronous Normal mode */
+    ASYNC_DOUBLE_SPEED = 1,    /*!<Asynchronous Double Speed */
+    SYNC_MASTER = 2     /*!<Synchronous Master mode */
 };
 
 /****************************************************************/
@@ -48,9 +57,9 @@ enum class USARTOperatingMode
 /****************************************************************/
 enum class USARTParity
 {
-    NONE    = 0,
-    EVEN    = 2,
-    ODD     = 3
+    NONE = 0,
+    EVEN = 2,
+    ODD = 3
 };
 
 /****************************************************************/
@@ -67,19 +76,17 @@ enum class USARTStopBits
 /****************************************************************/
 enum class USARTFrameLength
 {
-    FIVE_BITS   = 5,
-    SIX_BITS    = 6,
-    SEVEN_BITS  = 7,
-    EIGHT_BITS  = 8,
-    NINE_BITS   = 9
+    FIVE_BITS = 5,
+    SIX_BITS = 6,
+    SEVEN_BITS = 7,
+    EIGHT_BITS = 8,
+    NINE_BITS = 9
 };
-
 
 class Serial
 {
 public:
     explicit Serial(uint8_t port);
-
     ~Serial();
 
     void begin(uint32_t baud,
@@ -101,6 +108,47 @@ public:
     void write(uint8_t data);
     void write(const char *data);
     bool rxDataAvailable();
+    friend void USART0_RX_vect(void);
+    friend void USART0_UDRE_vect(void);
+    friend void USART1_RX_vect(void);
+    friend void USART1_UDRE_vect(void);
+    friend void USART2_RX_vect(void);
+    friend void USART2_UDRE_vect(void);
+    friend void USART3_RX_vect(void);
+    friend void USART3_UDRE_vect(void);
+
+
+private:
+
+#if defined(HAS_USART0)
+    static Serial *Serial0; /*!< Static member for Serial port 0*/
+#endif
+#if defined(HAS_USART1)
+    static Serial *Serial1; /*!< Static member for Serial port 0*/
+#endif
+#if defined(HAS_USART2)
+    static Serial *Serial2; /*!< Static member for Serial port 0*/
+#endif
+#if defined(HAS_USART3)
+    static Serial *Serial3; /*!< Static member for Serial port 0*/
+#endif
+
+    uint8_t portNumber; /*!< Serial communication port number*/
+    USARTOperatingMode OperatingMode;
+    USARTParity Parity;
+    USARTStopBits StopBits;
+    USARTFrameLength FrameLength;
+
+    inline void handleRXInterrupt();    /*!< Private function to handle RX interrupt calls*/
+    inline void handleUDREInterrupt();  /*!< Private function to handle UDRE interrupt calls*/
+
+    /** MCU used registry */
+    volatile uint8_t *UDRn;
+    volatile uint8_t *UCSRnA;
+    volatile uint8_t *UCSRnB;
+    volatile uint8_t *UCSRnC;
+    volatile uint8_t *UBRRnH;
+    volatile uint8_t *UBRRnL;
 
     // Buffer Setup
     // Receiving buffer - Rx
@@ -114,21 +162,6 @@ public:
  * transmission buffer*/
     volatile uint8_t txTailIndex;   /*!< Transmission buffer tail index. Indexes to the value that shall be
  * transmitted when USART line is free*/
-
-private:
-    uint8_t portNumber; /*!< Serial communication port number*/
-    USARTOperatingMode OperatingMode;
-    USARTParity Parity;
-    USARTStopBits StopBits;
-    USARTFrameLength FrameLength;
-
-    /** MCU used registry */
-    volatile uint8_t *UDRn;
-    volatile uint8_t *UCSRnA;
-    volatile uint8_t *UCSRnB;
-    volatile uint8_t *UCSRnC;
-    volatile uint8_t *UBRRnH;
-    volatile uint8_t *UBRRnL;
 
 
     /* MCU dependent registry bits (positions) */
@@ -186,21 +219,4 @@ private:
     //is set.
     uint8_t UDRIEn;
 };
-
-#if defined(HAS_USART) || defined(HAS_USART0)
-    extern Serial Serial0;
-#endif
-
-#if defined(HAS_USART1)
-    extern Serial Serial1;
-#endif
-
-#if defined(HAS_USART2)
-    extern Serial Serial2;
-#endif
-
-#if defined(HAS_USART3)
-    extern Serial Serial3;
-#endif
-
 #endif //ATMEGA_SERIAL_H

@@ -5,10 +5,10 @@ project(ATMega_Serial)
 #============================================================================================
 SET(DEVICE      atmega2560)     #Microcontroller model
 SET(FREQ        16000000)       #Frequency
-SET(FLASH       YES)            #Turn on/off flashing
+SET(FLASH       NO)            #Turn on/off flashing
 SET(BAUD        115200)         #Set flashing baud rate
 SET(PROGRAMMER  wiring)         #Programmer
-set(PORT        /dev/ttyACM1)   #Insert port number
+set(PORT        /dev/ttyACM0)   #Insert port number
 SET(AVRDUDE     /usr/share/arduino/hardware/tools/avrdude)
 SET(AVRCONF     /usr/share/arduino/hardware/tools/avrdude.conf)
 SET(ATMELICE    OFF)            #Turn on/off AtmelICE programmer

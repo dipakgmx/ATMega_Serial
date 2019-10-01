@@ -5,106 +5,125 @@
 #include "Serial.h"
 #include <stdlib.h>
 
+Serial *Serial::Serial0 = nullptr;
+
+Serial *Serial::Serial1 = nullptr;
+
+Serial *Serial::Serial2 = nullptr;
+
+Serial *Serial::Serial3 = nullptr;
+
 Serial::Serial(const uint8_t port)
 {
     this->portNumber = port;
 
     switch (portNumber) {
 
-    case 0:
-        this->UDRn      = &UDR0;
-        this->UCSRnA    = &UCSR0A;
-        this->UCSRnB    = &UCSR0B;
-        this->UCSRnC    = &UCSR0C;
-        this->UBRRnH    = &UBRR0H;
-        this->UBRRnL    = &UBRR0L;
-        this->TXENn     = TXEN0;
-        this->RXENn     = RXEN0;
-        this->UDREn     = UDRE0;
-        this->U2Xn      = U2X0;
-        this->RXCIEn    = RXCIE0;
-        this->USBSn     = USBS0;
-        this->UPMn0     = UPM00;
-        this->UPMn1     = UPM01;
-        this->UCSZn0    = UCSZ00;
-        this->UCSZn1    = UCSZ01;
-        this->UCSZn2    = UCSZ02;
-        this->UMSELn0   = UMSEL00;
-        this->UMSELn1   = UMSEL01;
-        this->UDRIEn    = UDRIE0;
-        break;
+        case 0:
+            if (Serial0 == nullptr) {
+                this->UDRn = &UDR0;
+                this->UCSRnA = &UCSR0A;
+                this->UCSRnB = &UCSR0B;
+                this->UCSRnC = &UCSR0C;
+                this->UBRRnH = &UBRR0H;
+                this->UBRRnL = &UBRR0L;
+                this->TXENn = TXEN0;
+                this->RXENn = RXEN0;
+                this->UDREn = UDRE0;
+                this->U2Xn = U2X0;
+                this->RXCIEn = RXCIE0;
+                this->USBSn = USBS0;
+                this->UPMn0 = UPM00;
+                this->UPMn1 = UPM01;
+                this->UCSZn0 = UCSZ00;
+                this->UCSZn1 = UCSZ01;
+                this->UCSZn2 = UCSZ02;
+                this->UMSELn0 = UMSEL00;
+                this->UMSELn1 = UMSEL01;
+                this->UDRIEn = UDRIE0;
+                Serial0 = this;
+            }
+            break;
 
-    case 1:
-        this->UDRn      = &UDR1;
-        this->UCSRnA    = &UCSR1A;
-        this->UCSRnB    = &UCSR1B;
-        this->UCSRnC    = &UCSR1C;
-        this->UBRRnH    = &UBRR1H;
-        this->UBRRnL    = &UBRR1L;
-        this->TXENn     = TXEN1;
-        this->RXENn     = RXEN1;
-        this->UDREn     = UDRE1;
-        this->U2Xn      = U2X1;
-        this->RXCIEn    = RXCIE1;
-        this->USBSn     = USBS1;
-        this->UPMn0     = UPM10;
-        this->UPMn1     = UPM11;
-        this->UCSZn0    = UCSZ10;
-        this->UCSZn1    = UCSZ11;
-        this->UCSZn2    = UCSZ12;
-        this->UMSELn0   = UMSEL10;
-        this->UMSELn1   = UMSEL11;
-        this->UDRIEn    = UDRIE1;
-        break;
+        case 1:
+            if (Serial1 == nullptr) {
+                this->UDRn = &UDR1;
+                this->UCSRnA = &UCSR1A;
+                this->UCSRnB = &UCSR1B;
+                this->UCSRnC = &UCSR1C;
+                this->UBRRnH = &UBRR1H;
+                this->UBRRnL = &UBRR1L;
+                this->TXENn = TXEN1;
+                this->RXENn = RXEN1;
+                this->UDREn = UDRE1;
+                this->U2Xn = U2X1;
+                this->RXCIEn = RXCIE1;
+                this->USBSn = USBS1;
+                this->UPMn0 = UPM10;
+                this->UPMn1 = UPM11;
+                this->UCSZn0 = UCSZ10;
+                this->UCSZn1 = UCSZ11;
+                this->UCSZn2 = UCSZ12;
+                this->UMSELn0 = UMSEL10;
+                this->UMSELn1 = UMSEL11;
+                this->UDRIEn = UDRIE1;
+                Serial1 = this;
+            }
+            break;
 
-    case 2:
-        this->UDRn      = &UDR2;
-        this->UCSRnA    = &UCSR2A;
-        this->UCSRnB    = &UCSR2B;
-        this->UCSRnC    = &UCSR2C;
-        this->UBRRnH    = &UBRR2H;
-        this->UBRRnL    = &UBRR2L;
-        this->TXENn     = TXEN2;
-        this->RXENn     = RXEN2;
-        this->UDREn     = UDRE2;
-        this->U2Xn      = U2X2;
-        this->RXCIEn    = RXCIE2;
-        this->USBSn     = USBS2;
-        this->UPMn0     = UPM20;
-        this->UPMn1     = UPM21;
-        this->UCSZn0    = UCSZ20;
-        this->UCSZn1    = UCSZ21;
-        this->UCSZn2    = UCSZ22;
-        this->UMSELn0   = UMSEL20;
-        this->UMSELn1   = UMSEL21;
-        this->UDRIEn    = UDRIE2;
-        break;
+        case 2:
+            if (Serial2 == nullptr) {
+                this->UDRn = &UDR2;
+                this->UCSRnA = &UCSR2A;
+                this->UCSRnB = &UCSR2B;
+                this->UCSRnC = &UCSR2C;
+                this->UBRRnH = &UBRR2H;
+                this->UBRRnL = &UBRR2L;
+                this->TXENn = TXEN2;
+                this->RXENn = RXEN2;
+                this->UDREn = UDRE2;
+                this->U2Xn = U2X2;
+                this->RXCIEn = RXCIE2;
+                this->USBSn = USBS2;
+                this->UPMn0 = UPM20;
+                this->UPMn1 = UPM21;
+                this->UCSZn0 = UCSZ20;
+                this->UCSZn1 = UCSZ21;
+                this->UCSZn2 = UCSZ22;
+                this->UMSELn0 = UMSEL20;
+                this->UMSELn1 = UMSEL21;
+                this->UDRIEn = UDRIE2;
+                Serial2 = this;
+            }
+            break;
 
-    case 3:
-        this->UDRn      = &UDR3;
-        this->UCSRnA    = &UCSR3A;
-        this->UCSRnB    = &UCSR3B;
-        this->UCSRnC    = &UCSR3C;
-        this->UBRRnH    = &UBRR3H;
-        this->UBRRnL    = &UBRR3L;
-        this->TXENn     = TXEN3;
-        this->RXENn     = RXEN3;
-        this->UDREn     = UDRE3;
-        this->U2Xn      = U2X3;
-        this->RXCIEn    = RXCIE3;
-        this->USBSn     = USBS3;
-        this->UPMn0     = UPM30;
-        this->UPMn1     = UPM31;
-        this->UCSZn0    = UCSZ30;
-        this->UCSZn1    = UCSZ31;
-        this->UCSZn2    = UCSZ32;
-        this->UMSELn0   = UMSEL30;
-        this->UMSELn1   = UMSEL31;
-        this->UDRIEn    = UDRIE3;
-        break;
+        case 3:
+            if (Serial3 == nullptr) {
+                this->UDRn = &UDR3;
+                this->UCSRnA = &UCSR3A;
+                this->UCSRnB = &UCSR3B;
+                this->UCSRnC = &UCSR3C;
+                this->UBRRnH = &UBRR3H;
+                this->UBRRnL = &UBRR3L;
+                this->TXENn = TXEN3;
+                this->RXENn = RXEN3;
+                this->UDREn = UDRE3;
+                this->U2Xn = U2X3;
+                this->RXCIEn = RXCIE3;
+                this->USBSn = USBS3;
+                this->UPMn0 = UPM30;
+                this->UPMn1 = UPM31;
+                this->UCSZn0 = UCSZ30;
+                this->UCSZn1 = UCSZ31;
+                this->UCSZn2 = UCSZ32;
+                this->UMSELn0 = UMSEL30;
+                this->UMSELn1 = UMSEL31;
+                this->UDRIEn = UDRIE3;
+                Serial3 = this;
+            }
+            break;
 
-    default:
-        break;
+        default:break;
 
     }
 }
@@ -164,7 +183,7 @@ void Serial::begin(const uint32_t baud,
  * @param mode The desired operating mode
  */
 void Serial::setOpMode(const uint32_t baud,
-                    const enum USARTOperatingMode mode)
+                       const enum USARTOperatingMode mode)
 {
     uint16_t bRate = 0;
 
@@ -179,21 +198,18 @@ void Serial::setOpMode(const uint32_t baud,
     /***********************************************************************/
     switch (mode) {
 
-        case USARTOperatingMode::SYNC_MASTER:
-            bRate = static_cast<uint16_t>((F_CPU / 2 / baud - 1) / 2);
+        case USARTOperatingMode::SYNC_MASTER:bRate = static_cast<uint16_t>((F_CPU / 2 / baud - 1) / 2);
             *(this->UCSRnC) |= (1 << this->UMSELn0);
             *(this->UCSRnC) &= ~(1 << this->UMSELn1);
             break;
 
-        case USARTOperatingMode::ASYNC_DOUBLE_SPEED:
-            bRate = static_cast<uint16_t>((F_CPU / 4 / baud - 1) / 2);
+        case USARTOperatingMode::ASYNC_DOUBLE_SPEED:bRate = static_cast<uint16_t>((F_CPU / 4 / baud - 1) / 2);
             // UMSELn0 = 0 and UMSELn1 = 0 for asynchronous mode
             *(this->UCSRnC) &= ~(1 << this->UMSELn0);
             *(this->UCSRnC) &= ~(1 << this->UMSELn1);
             break;
 
-        case USARTOperatingMode::ASYNC_NORMAL:
-            bRate = static_cast<uint16_t>((F_CPU / 16 / baud) - 1);
+        case USARTOperatingMode::ASYNC_NORMAL:bRate = static_cast<uint16_t>((F_CPU / 16 / baud) - 1);
             // UMSELn0 = 0 and UMSELn1 = 0 for asynchronous mode
             *(this->UCSRnC) &= ~(1 << this->UMSELn0);
             *(this->UCSRnC) &= ~(1 << this->UMSELn1);
@@ -229,26 +245,22 @@ void Serial::setFrameLength(enum USARTFrameLength frameLength)
     /*    1            1           1               9-bit                    */
     /************************************************************************/
     switch (frameLength) {
-        case USARTFrameLength::FIVE_BITS:
-            *(this->UCSRnC) &= ~(1 << this->UCSZn0);
+        case USARTFrameLength::FIVE_BITS:*(this->UCSRnC) &= ~(1 << this->UCSZn0);
             *(this->UCSRnC) &= ~(1 << this->UCSZn1);
             *(this->UCSRnB) &= ~(1 << this->UCSZn2);
             break;
 
-        case USARTFrameLength::SIX_BITS:
-            *(this->UCSRnC) |= (1 << this->UCSZn0);
+        case USARTFrameLength::SIX_BITS:*(this->UCSRnC) |= (1 << this->UCSZn0);
             *(this->UCSRnC) &= ~(1 << this->UCSZn1);
             *(this->UCSRnB) &= ~(1 << this->UCSZn2);
             break;
 
-        case USARTFrameLength::SEVEN_BITS:
-            *(this->UCSRnC) &= ~(1 << this->UCSZn0);
+        case USARTFrameLength::SEVEN_BITS:*(this->UCSRnC) &= ~(1 << this->UCSZn0);
             *(this->UCSRnC) |= (1 << this->UCSZn1);
             *(this->UCSRnB) &= ~(1 << this->UCSZn2);
             break;
 
-        case USARTFrameLength::EIGHT_BITS:
-            *(this->UCSRnC) |= (1 << this->UCSZn0);
+        case USARTFrameLength::EIGHT_BITS:*(this->UCSRnC) |= (1 << this->UCSZn0);
             *(this->UCSRnC) |= (1 << this->UCSZn1);
             *(this->UCSRnB) &= ~(1 << this->UCSZn2);
             break;
@@ -287,12 +299,10 @@ void Serial::setStopBit(USARTStopBits stopBit)
     /************************************************************************/
     switch (stopBit) {
         // one stop bit
-        case USARTStopBits::ONE:
-            *(this->UCSRnC) &= ~(1 << this->USBSn);
+        case USARTStopBits::ONE:*(this->UCSRnC) &= ~(1 << this->USBSn);
             break;
             // two stop bits
-        case USARTStopBits::TWO:
-            *(this->UCSRnC) |= (1 << this->USBSn);
+        case USARTStopBits::TWO:*(this->UCSRnC) |= (1 << this->USBSn);
             break;
     }
 }
@@ -319,18 +329,15 @@ void Serial::setParity(enum USARTParity parity)
     /*    1           1             Enabled, Odd Parity                     */
     /************************************************************************/
     switch (parity) {
-        case USARTParity::NONE:
-            *(this->UCSRnC) &= ~(1 << this->UPMn0);
+        case USARTParity::NONE:*(this->UCSRnC) &= ~(1 << this->UPMn0);
             *(this->UCSRnC) &= ~(1 << this->UPMn1);
             break;
 
-        case USARTParity::EVEN:
-            *(this->UCSRnC) &= ~(1 << this->UPMn0);
+        case USARTParity::EVEN:*(this->UCSRnC) &= ~(1 << this->UPMn0);
             *(this->UCSRnC) |= (1 << this->UPMn1);
             break;
 
-        case USARTParity::ODD:
-            *(this->UCSRnC) |= (1 << this->UPMn0);
+        case USARTParity::ODD:*(this->UCSRnC) |= (1 << this->UPMn0);
             *(this->UCSRnC) |= (1 << this->UPMn1);
             break;
     }
@@ -432,168 +439,91 @@ Serial::~Serial()
 
 }
 
-// define the global USART object(s)
-// used to read/write via USART/Serial
-// and set the USARTn_RX_vect interrupts
-#if defined(HAS_USART)
-Usart USART( 0);
-  ISR( USART_RX_vect) {
-    rxVector( UDR0, USART);
-  };
-#endif
-
-
 // Rx & UDRE vectors for USART0
 #if defined(HAS_USART0)
+void USART0_RX_vect()
+{
+    Serial::Serial0->handleRXInterrupt();
+}
 
-    Serial Serial0(0);
-
-    ISR(USART0_RX_vect)
-    {
-        /* Read the received data */
-        uint8_t data = UDR0;
-        /* Calculate buffer index */
-        uint8_t temp_head = static_cast<uint8_t>((Serial0.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
-        if (temp_head == Serial0.rxTailIndex) {
-            /* ERROR! Receive buffer overflow */
-            /* Do nothing for now */
-        }
-        else {
-            Serial0.rxHeadIndex = temp_head;
-            Serial0.rxBuffer[Serial0.rxHeadIndex] = data;
-        }
-    };
-    ISR(USART0_UDRE_vect)
-    {
-        unsigned char temp_tail;
-        /* Check if all data is transmitted */
-        if (Serial0.txHeadIndex != Serial0.txTailIndex) {
-            /* Calculate buffer index */
-            temp_tail = static_cast<unsigned char>((Serial0.txTailIndex + 1) & (BUFFER_SIZE - 1));
-            /* Store new index */
-            Serial0.txTailIndex = temp_tail;
-            /* Start transmission */
-            UDR0 = Serial0.txBuffer[temp_tail];
-        }
-        else {
-            UCSR0B &= ~(1 << UDRIE0); // disable UDRE interrupt
-        }
-    };
+void USART0_UDRE_vect()
+{
+    Serial::Serial0->handleUDREInterrupt();
+}
 #endif
 
 // Rx & UDRE vectors for USART1
 #if defined(HAS_USART1)
+void USART1_RX_vect()
+{
+    Serial::Serial1->handleRXInterrupt();
+}
 
-    Serial Serial1(1);
-
-    ISR(USART1_RX_vect)
-    {
-        /* Read the received data */
-        uint8_t data = UDR1;
-        /* Calculate buffer index */
-        uint8_t temp_head = static_cast<uint8_t>((Serial1.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
-        if (temp_head == Serial1.rxTailIndex) {
-            /* ERROR! Receive buffer overflow */
-            /* Do nothing for now */
-        }
-        else {
-            Serial1.rxHeadIndex = temp_head;
-            Serial1.rxBuffer[Serial1.rxHeadIndex] = data;
-        }
-    };
-
-    ISR(USART1_UDRE_vect)
-    {
-        uint8_t temp_tail;
-        /* Check if all data is transmitted */
-        if (Serial1.txHeadIndex != Serial1.txTailIndex) {
-            /* Calculate buffer index */
-            temp_tail = static_cast<uint8_t>((Serial1.txTailIndex + 1) & (BUFFER_SIZE - 1));
-            /* Store new index */
-            Serial1.txTailIndex = temp_tail;
-            /* Start transmission */
-            UDR1 = Serial1.txBuffer[temp_tail];
-        }
-        else {
-            UCSR1B &= ~(1 << UDRIE1); // disable UDRE interrupt
-        }
-    };
+void USART1_UDRE_vect()
+{
+    Serial::Serial1->handleUDREInterrupt();
+}
 #endif
 
 // Rx & UDRE vectors for USART2
 #if defined(HAS_USART2)
+void USART2_RX_vect()
+{
+    Serial::Serial2->handleRXInterrupt();
+}
 
-    Serial Serial2(2);
-
-    ISR(USART2_RX_vect)
-    {
-        /* Read the received data */
-        uint8_t data = UDR2;
-        /* Calculate buffer index */
-        uint8_t temp_head = static_cast<uint8_t>((Serial2.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
-        if (temp_head == Serial2.rxTailIndex) {
-            /* ERROR! Receive buffer overflow */
-            /* Do nothing for now */
-        }
-        else {
-            Serial2.rxHeadIndex = temp_head;
-            Serial2.rxBuffer[Serial2.rxHeadIndex] = data;
-        }
-    };
-
-    ISR(USART2_UDRE_vect)
-    {
-        uint8_t temp_tail;
-        /* Check if all data is transmitted */
-        if (Serial2.txHeadIndex != Serial2.txTailIndex) {
-            /* Calculate buffer index */
-            temp_tail = static_cast<uint8_t>((Serial2.txTailIndex + 1) & (BUFFER_SIZE - 1));
-            /* Store new index */
-            Serial2.txTailIndex = temp_tail;
-            /* Start transmission */
-            UDR2 = Serial2.txBuffer[temp_tail];
-        }
-        else {
-            UCSR2B &= ~(1 << UDRIE2); // disable UDRE interrupt
-        }
-    };
+void USART2_UDRE_vect()
+{
+    Serial::Serial2->handleUDREInterrupt();
+}
 #endif
 
 // Rx & UDRE vectors for USART3
 #if defined(HAS_USART3)
+void USART3_RX_vect()
+{
+    Serial::Serial3->handleRXInterrupt();
+}
 
-    Serial Serial3(3);
-
-    ISR(USART3_RX_vect)
-    {
-        /* Read the received data */
-        uint8_t data = UDR3;
-        /* Calculate buffer index */
-        uint8_t temp_head = static_cast<uint8_t>((Serial3.rxHeadIndex + 1) & (BUFFER_SIZE - 1));
-        if (temp_head == Serial3.rxTailIndex) {
-            /* ERROR! Receive buffer overflow */
-            /* Do nothing for now */
-        }
-        else {
-            Serial3.rxHeadIndex = temp_head;
-            Serial3.rxBuffer[Serial3.rxHeadIndex] = data;
-        }
-    };
-
-    ISR(USART3_UDRE_vect)
-    {
-        uint8_t temp_tail;
-        /* Check if all data is transmitted */
-        if (Serial3.txHeadIndex != Serial3.txTailIndex) {
-            /* Calculate buffer index */
-            temp_tail = static_cast<uint8_t>((Serial3.txTailIndex + 1) & (BUFFER_SIZE - 1));
-            /* Store new index */
-            Serial3.txTailIndex = temp_tail;
-            /* Start transmission */
-            UDR3 = Serial3.txBuffer[temp_tail];
-        }
-        else {
-            UCSR3B &= ~(1 << UDRIE3); // disable UDRE interrupt
-        }
-    };
+void USART3_UDRE_vect()
+{
+    Serial::Serial3->handleUDREInterrupt();
+}
 #endif
+
+/*!
+ * Function handles the RX interrupts across all the static instances
+ */
+void Serial::handleRXInterrupt()
+{
+    /* Calculate buffer index */
+    uint8_t temp_head = static_cast<uint8_t>((this->rxHeadIndex + 1) & (BUFFER_SIZE - 1));
+    if (temp_head == this->rxTailIndex) {
+        /* ERROR! Receive buffer overflow */
+        /* Do nothing for now */
+    }
+    else {
+        this->rxHeadIndex = temp_head;
+        this->rxBuffer[this->rxHeadIndex] = *(this->UDRn);
+    }
+}
+
+/*!
+ * Function handles the UDRE interrupts across all the static instances
+ */
+void Serial::handleUDREInterrupt()
+{
+    unsigned char temp_tail;
+    /* Check if all data is transmitted */
+    if (this->txHeadIndex != this->txTailIndex) {
+        /* Calculate buffer index */
+        temp_tail = static_cast<unsigned char>((this->txTailIndex + 1) & (BUFFER_SIZE - 1));
+        /* Store new index */
+        this->txTailIndex = temp_tail;
+        /* Start transmission */
+        *(this->UDRn) = this->txBuffer[temp_tail];
+    }
+    else {
+        *(this->UCSRnB) &= ~(1 << this->UDRIEn); // disable UDRE interrupt
+    }
+}
