@@ -37,6 +37,10 @@ If `SET(FLASH ???)` was set as `YES`, as explained earlier, the file is flashed 
 
 ### Using the library:
 Typical usage
+* First, create an object of the `Serial` class. The desired port number should be given to the constructor. Possible port options being - _0, 1, 2, 3_:
+  ```
+  Serial Serial1(1);
+  ```
 * To begin the transmission, call:
   ```
   Serial1.begin();
