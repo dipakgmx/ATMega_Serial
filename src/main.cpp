@@ -4,15 +4,15 @@ int main()
 {
     cli();
     // start communication at a baud rate of 9600
-    Serial serial0(0);
-    serial0.begin(9600);
+    Serial Serial1(0);
+    Serial1.begin(9600);
     sei();
 
     // read the response data
     while (true) {
-        if (serial0.rxDataAvailable()) {
-            uint8_t data = serial0.read();
-            serial0.write(data);
+        if (Serial1.rxDataAvailable()) {
+            uint8_t data = Serial1.read();
+            Serial1.write(data);
         }
     }
 }
